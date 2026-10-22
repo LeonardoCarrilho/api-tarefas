@@ -35,7 +35,7 @@ API REST para gerenciamento de tarefas, construída com **Node.js, Express e Mon
 - dotenv, cors, helmet, morgan
 - swagger-ui-express
 - Node Test Runner, Supertest e mongodb-memory-server
-- nodemon (desenvolvimento)
+- `node --watch` (desenvolvimento)
 
 ## Como rodar
 
