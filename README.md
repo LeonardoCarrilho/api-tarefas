@@ -10,6 +10,7 @@ API REST para gerenciamento de tarefas, construída com **Node.js, Express e Mon
 ![Express](https://img.shields.io/badge/Express-4-000000?logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47a248?logo=mongodb&logoColor=white)
 ![Testes](https://img.shields.io/badge/testes-10_passing-16a34a)
+![CI](https://github.com/LeonardoCarrilho/api-tarefas/actions/workflows/ci.yml/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-16a34a)
 
 ## Funcionalidades
