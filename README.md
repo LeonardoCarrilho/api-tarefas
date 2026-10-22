@@ -1,5 +1,7 @@
 # API de Tarefas
 
+Repositório: [github.com/LeonardoCarrilho/api-tarefas](https://github.com/LeonardoCarrilho/api-tarefas)
+
 API REST para gerenciamento de tarefas, construída com **Node.js, Express e MongoDB (Mongoose)**. Inclui validação, filtros, busca, paginação, estatísticas e tratamento centralizado de erros.
 
 ![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=node.js&logoColor=white)
