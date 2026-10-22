@@ -1,0 +1,57 @@
+@baseUrl = http://localhost:3000/api
+
+# Substitua pelo id retornado na criação/listagem
+@taskId = cole_o_id_aqui
+
+### Health check
+GET {{baseUrl}}/health
+
+### Listar tarefas (primeira página)
+GET {{baseUrl}}/tasks?page=1&limit=10
+
+### Filtrar por status e prioridade
+GET {{baseUrl}}/tasks?status=pendente&priority=alta
+
+### Busca textual
+GET {{baseUrl}}/tasks?search=estudar
+
+### Ordenar por prazo
+GET {{baseUrl}}/tasks?sort=due&limit=20
+
+### Estatísticas
+GET {{baseUrl}}/tasks/stats
+
+### Buscar tarefa por id
+GET {{baseUrl}}/tasks/{{taskId}}
+
+### Criar tarefa
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "title": "Estudar Node.js",
+  "description": "Revisar middlewares e tratamento de erros",
+  "status": "pendente",
+  "priority": "alta",
+  "dueDate": "2026-11-05"
+}
+
+### Atualizar tarefa
+PATCH {{baseUrl}}/tasks/{{taskId}}
+Content-Type: application/json
+
+{
+  "title": "Estudar Node.js e Express",
+  "priority": "media"
+}
+
+### Concluir tarefa
+PATCH {{baseUrl}}/tasks/{{taskId}}
+Content-Type: application/json
+
+{
+  "status": "concluida"
+}
+
+### Remover tarefa
+DELETE {{baseUrl}}/tasks/{{taskId}}
