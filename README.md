@@ -37,6 +37,7 @@ API REST para gerenciamento de tarefas, construída com **Node.js, Express e Mon
 - swagger-ui-express
 - Node Test Runner, Supertest e mongodb-memory-server
 - `node --watch` (desenvolvimento)
+- Docker e Docker Compose (MongoDB 8 + API)
 
 ## Como rodar
 
@@ -289,10 +290,41 @@ docker build -t api-tarefas .
 docker run --env-file .env -p 3000:3000 api-tarefas
 ```
 
+### Docker Compose
+
+O [`docker-compose.yml`](./docker-compose.yml) sobe o MongoDB 8 e a API juntos, com volume
+persistente para os dados:
+
+```bash
+docker compose up --build
+```
+
+- API: `http://localhost:3000/api`
+- MongoDB: `mongodb://localhost:27017/api-tarefas`
+- Volume: `mongo-data` (persiste os dados entre reinícios)
+
+Para rodar em segundo plano e acompanhar os logs:
+
+```bash
+docker compose up -d --build
+docker compose logs -f api
+```
+
+Para parar os serviços:
+
+```bash
+docker compose down
+```
+
+Use `docker compose down -v` se também quiser apagar os dados do volume.
+
+As variáveis `CORS_ORIGIN`, `RATE_LIMIT_MAX` e `RATE_LIMIT_WINDOW_MS` do host são
+repassadas para a API, com valores padrão definidos no compose.
+
 ## Possíveis evoluções
 
 - Autenticação com JWT e tarefas por usuário
-- Rate limiting e cache de estatísticas
+- Cache de estatísticas
 - Front-end consumindo a API
 - WebSocket para atualizações em tempo real
 - Pipeline de deploy automático após os testes
