@@ -88,6 +88,41 @@ describe("API de Tarefas", () => {
     assert.equal(secondPage.body.data.length, 1);
   });
 
+  it("expõe cabeçalhos de paginação coerentes com page e limit", async () => {
+    await Task.create([
+      { title: "Primeira tarefa" },
+      { title: "Segunda tarefa" },
+      { title: "Terceira tarefa" },
+    ]);
+
+    const firstPage = await request(app)
+      .get("/api/tasks?page=1&limit=2")
+      .expect(200);
+
+    assert.equal(firstPage.body.meta.total, 3);
+    assert.equal(firstPage.body.data.length, 2);
+    assert.equal(firstPage.headers["x-total-count"], "3");
+    assert.equal(firstPage.headers["x-page"], "1");
+    assert.equal(firstPage.headers["x-page-size"], "2");
+    assert.match(firstPage.headers.link, /rel="first"/);
+    assert.match(firstPage.headers.link, /rel="next"/);
+    assert.match(firstPage.headers.link, /rel="last"/);
+    assert.doesNotMatch(firstPage.headers.link, /rel="prev"/);
+    assert.match(firstPage.headers.link, /page=2&limit=2/);
+
+    const lastPage = await request(app)
+      .get("/api/tasks?page=2&limit=2")
+      .expect(200);
+
+    assert.equal(lastPage.body.data.length, 1);
+    assert.equal(lastPage.headers["x-page"], "2");
+    assert.match(lastPage.headers.link, /rel="first"/);
+    assert.match(lastPage.headers.link, /rel="prev"/);
+    assert.match(lastPage.headers.link, /rel="last"/);
+    assert.doesNotMatch(lastPage.headers.link, /rel="next"/);
+    assert.match(lastPage.headers.link, /page=1&limit=2/);
+  });
+
   it("rejeita filtros com valores inválidos", async () => {
     const response = await request(app)
       .get("/api/tasks?status=invalido")

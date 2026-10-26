@@ -87,6 +87,31 @@ export const openApiDocument = {
         responses: {
           200: {
             description: "Lista paginada de tarefas",
+            headers: {
+              "X-Total-Count": {
+                description: "Total de tarefas que atendem aos filtros",
+                schema: { type: "integer", example: 42 },
+              },
+              "X-Page": {
+                description: "Página retornada",
+                schema: { type: "integer", example: 1 },
+              },
+              "X-Page-Size": {
+                description: "Quantidade de itens por página",
+                schema: { type: "integer", example: 10 },
+              },
+              Link: {
+                description:
+                  "Links para first, prev, next e last no padrão RFC 5988",
+                schema: {
+                  type: "string",
+                  example:
+                    '<http://localhost:3000/api/tasks?page=1&limit=10>; rel="first", ' +
+                    '<http://localhost:3000/api/tasks?page=2&limit=10>; rel="next", ' +
+                    '<http://localhost:3000/api/tasks?page=5&limit=10>; rel="last"',
+                },
+              },
+            },
             content: {
               "application/json": {
                 schema: { $ref: "#/components/schemas/TaskList" },

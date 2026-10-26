@@ -190,6 +190,21 @@ e `404` quando a tarefa não existe.
 }
 ```
 
+A resposta também inclui cabeçalhos úteis para clientes:
+
+| Cabeçalho | Descrição |
+| --- | --- |
+| `X-Total-Count` | Total de tarefas que atendem aos filtros |
+| `X-Page` | Página retornada |
+| `X-Page-Size` | Itens por página |
+| `Link` | Links `first`, `prev`, `next` e `last` (RFC 5988) |
+
+Exemplo de `Link`:
+
+```text
+<http://localhost:3000/api/tasks?page=1&limit=10>; rel="first", <http://localhost:3000/api/tasks?page=2&limit=10>; rel="next", <http://localhost:3000/api/tasks?page=5&limit=10>; rel="last"
+```
+
 ### Estatísticas
 
 ```json

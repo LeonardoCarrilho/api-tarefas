@@ -67,13 +67,39 @@ export async function listTasks(req, res, next) {
       Task.countDocuments(filters),
     ]);
 
+    const totalPages = Math.ceil(total / limit);
+    const lastPage = Math.max(1, totalPages);
+
+    const buildPageLink = (targetPage) => {
+      const url = new URL(`${req.protocol}://${req.get("host")}${req.originalUrl}`);
+      url.searchParams.set("page", String(targetPage));
+      url.searchParams.set("limit", String(limit));
+      return `<${url.toString()}>`;
+    };
+
+    const links = [`${buildPageLink(1)}; rel="first"`];
+    if (page > 1) {
+      links.push(`${buildPageLink(page - 1)}; rel="prev"`);
+    }
+    if (page < totalPages) {
+      links.push(`${buildPageLink(page + 1)}; rel="next"`);
+    }
+    links.push(`${buildPageLink(lastPage)}; rel="last"`);
+
+    res.set({
+      "X-Total-Count": String(total),
+      "X-Page": String(page),
+      "X-Page-Size": String(limit),
+      Link: links.join(", "),
+    });
+
     res.json({
       data: tasks,
       meta: {
         total,
         page,
         limit,
-        pages: Math.ceil(total / limit),
+        pages: totalPages,
       },
     });
   } catch (error) {

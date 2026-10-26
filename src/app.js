@@ -34,6 +34,10 @@ app.use(
   cors({
     origin: allowedOrigins,
     exposedHeaders: [
+      "X-Total-Count",
+      "X-Page",
+      "X-Page-Size",
+      "Link",
       "RateLimit",
       "RateLimit-Limit",
       "RateLimit-Policy",
