@@ -132,6 +132,39 @@ export async function updateTask(req, res, next) {
   }
 }
 
+export async function updateTaskStatus(req, res, next) {
+  try {
+    const { status } = req.body ?? {};
+
+    if (!status) {
+      return res.status(400).json({
+        error: "Informe o status desejado.",
+        allowed: TASK_STATUS,
+      });
+    }
+
+    if (typeof status !== "string" || !TASK_STATUS.includes(status)) {
+      return res.status(400).json({
+        error: "Status inválido.",
+        allowed: TASK_STATUS,
+      });
+    }
+
+    const task = await Task.findById(req.params.id);
+    if (!task) {
+      return res.status(404).json({ error: "Tarefa não encontrada." });
+    }
+
+    // O hook pre("save") do model ajusta o completedAt conforme o status.
+    task.status = status;
+    await task.save();
+
+    res.json({ data: task });
+  } catch (error) {
+    next(error);
+  }
+}
+
 export async function deleteTask(req, res, next) {
   try {
     const task = await Task.findByIdAndDelete(req.params.id);

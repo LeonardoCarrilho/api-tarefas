@@ -220,6 +220,44 @@ export const openApiDocument = {
         },
       },
     },
+    "/api/tasks/{id}/status": {
+      parameters: [
+        {
+          name: "id",
+          in: "path",
+          required: true,
+          schema: { type: "string" },
+          description: "ID da tarefa",
+        },
+      ],
+      patch: {
+        tags: ["Tarefas"],
+        summary: "Atualiza apenas o status de uma tarefa",
+        description:
+          "Atualiza o status e ajusta completedAt automaticamente: " +
+          "preenchido ao concluir e nulo ao reabrir.",
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/TaskStatusUpdate" },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: "Status atualizado",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/TaskResponse" },
+              },
+            },
+          },
+          400: { $ref: "#/components/responses/BadRequest" },
+          404: { $ref: "#/components/responses/NotFound" },
+        },
+      },
+    },
   },
   components: {
     schemas: {
@@ -268,6 +306,13 @@ export const openApiDocument = {
             format: "date-time",
             nullable: true,
           },
+        },
+      },
+      TaskStatusUpdate: {
+        type: "object",
+        required: ["status"],
+        properties: {
+          status: { $ref: "#/components/schemas/TaskStatus" },
         },
       },
       Task: {

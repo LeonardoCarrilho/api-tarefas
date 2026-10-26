@@ -149,6 +149,67 @@ describe("API de Tarefas", () => {
     assert.equal(reopened.body.data.completedAt, null);
   });
 
+  it("atualiza o status pelo endpoint dedicado", async () => {
+    const task = await Task.create({ title: "Acompanhar andamento" });
+
+    const inProgress = await request(app)
+      .patch(`/api/tasks/${task.id}/status`)
+      .send({ status: "em_andamento" })
+      .expect(200);
+
+    assert.equal(inProgress.body.data.status, "em_andamento");
+    assert.equal(inProgress.body.data.completedAt, null);
+
+    const completed = await request(app)
+      .patch(`/api/tasks/${task.id}/status`)
+      .send({ status: "concluida" })
+      .expect(200);
+
+    assert.equal(completed.body.data.status, "concluida");
+    assert.ok(completed.body.data.completedAt);
+
+    const reopened = await request(app)
+      .patch(`/api/tasks/${task.id}/status`)
+      .send({ status: "pendente" })
+      .expect(200);
+
+    assert.equal(reopened.body.data.status, "pendente");
+    assert.equal(reopened.body.data.completedAt, null);
+  });
+
+  it("valida o endpoint de status e trata tarefas inexistentes", async () => {
+    const task = await Task.create({ title: "Validar status" });
+
+    const missing = await request(app)
+      .patch(`/api/tasks/${task.id}/status`)
+      .send({})
+      .expect(400);
+    assert.equal(missing.body.error, "Informe o status desejado.");
+    assert.deepEqual(missing.body.allowed, [
+      "pendente",
+      "em_andamento",
+      "concluida",
+    ]);
+
+    const invalid = await request(app)
+      .patch(`/api/tasks/${task.id}/status`)
+      .send({ status: "finalizada" })
+      .expect(400);
+    assert.equal(invalid.body.error, "Status inválido.");
+
+    const notFound = await request(app)
+      .patch(`/api/tasks/${new mongoose.Types.ObjectId()}/status`)
+      .send({ status: "concluida" })
+      .expect(404);
+    assert.equal(notFound.body.error, "Tarefa não encontrada.");
+
+    const invalidId = await request(app)
+      .patch("/api/tasks/id-invalido/status")
+      .send({ status: "concluida" })
+      .expect(400);
+    assert.equal(invalidId.body.error, "ID inválido.");
+  });
+
   it("remove uma tarefa e retorna 404 depois", async () => {
     const task = await Task.create({ title: "Tarefa temporária" });
 

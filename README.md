@@ -100,6 +100,7 @@ A documentação interativa fica em [`http://localhost:3000/api/docs`](http://lo
 | `GET` | `/api/tasks/:id` | Busca uma tarefa |
 | `POST` | `/api/tasks` | Cria uma tarefa |
 | `PUT` / `PATCH` | `/api/tasks/:id` | Atualiza uma tarefa |
+| `PATCH` | `/api/tasks/:id/status` | Atualiza apenas o status |
 | `DELETE` | `/api/tasks/:id` | Remove uma tarefa |
 
 ### Filtros da listagem
@@ -162,6 +163,18 @@ Content-Type: application/json
 ```
 
 Ao concluir, o campo `completedAt` é preenchido automaticamente. Ao reabrir, ele volta para `null`.
+
+### Atualizar apenas o status
+
+```http
+PATCH /api/tasks/:id/status
+Content-Type: application/json
+
+{ "status": "em_andamento" }
+```
+
+Aceita `pendente`, `em_andamento` ou `concluida`. Retorna `400` para status ausente/inválido
+e `404` quando a tarefa não existe.
 
 ### Listagem paginada
 

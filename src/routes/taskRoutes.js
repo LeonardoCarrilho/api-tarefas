@@ -6,6 +6,7 @@ import {
   getTask,
   listTasks,
   updateTask,
+  updateTaskStatus,
 } from "../controllers/taskController.js";
 
 const router = Router();
@@ -13,6 +14,8 @@ const router = Router();
 router.get("/stats", getStats);
 
 router.route("/").get(listTasks).post(createTask);
+
+router.patch("/:id/status", updateTaskStatus);
 
 router
   .route("/:id")

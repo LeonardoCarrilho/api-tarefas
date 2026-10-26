@@ -53,5 +53,13 @@ Content-Type: application/json
   "status": "concluida"
 }
 
+### Atualizar apenas o status
+PATCH {{baseUrl}}/tasks/{{taskId}}/status
+Content-Type: application/json
+
+{
+  "status": "em_andamento"
+}
+
 ### Remover tarefa
 DELETE {{baseUrl}}/tasks/{{taskId}}
