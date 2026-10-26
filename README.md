@@ -21,6 +21,7 @@ API REST para gerenciamento de tarefas, construída com **Node.js, Express e Mon
 - Ordenação e paginação
 - Estatísticas gerais (por status, prioridade, atrasadas e taxa de conclusão)
 - `completedAt` atualizado automaticamente ao concluir uma tarefa
+- Rate limit nas rotas de tarefas, configurável por variáveis de ambiente
 - CORS configurável, Helmet e logs com Morgan
 - Documentação interativa com Swagger UI em `/api/docs`
 - Contrato OpenAPI 3.0 disponível em `/api/docs.json`

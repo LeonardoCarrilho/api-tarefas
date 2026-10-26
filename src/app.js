@@ -7,6 +7,7 @@ import swaggerUi from "swagger-ui-express";
 import taskRoutes from "./routes/taskRoutes.js";
 import { openApiDocument } from "./docs/openapi.js";
 import { errorHandler, notFound } from "./middlewares/errorHandler.js";
+import { taskRateLimiter } from "./middlewares/rateLimit.js";
 
 const app = express();
 
@@ -29,7 +30,19 @@ app.use(
     },
   })
 );
-app.use(cors({ origin: allowedOrigins }));
+app.use(
+  cors({
+    origin: allowedOrigins,
+    exposedHeaders: [
+      "RateLimit",
+      "RateLimit-Limit",
+      "RateLimit-Policy",
+      "RateLimit-Remaining",
+      "RateLimit-Reset",
+      "Retry-After",
+    ],
+  })
+);
 app.use(express.json({ limit: "10kb" }));
 
 if (process.env.NODE_ENV !== "test") {
@@ -47,7 +60,7 @@ app.get("/api/health", (_req, res) => {
   });
 });
 
-app.use("/api/tasks", taskRoutes);
+app.use("/api/tasks", taskRateLimiter, taskRoutes);
 
 app.get("/api/docs.json", (_req, res) => res.json(openApiDocument));
 
