@@ -9,7 +9,8 @@ API REST para gerenciamento de tarefas, construída com **Node.js, Express e Mon
 ![Node.js](https://img.shields.io/badge/Node.js-20.19+-339933?logo=node.js&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-4-000000?logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47a248?logo=mongodb&logoColor=white)
-![Testes](https://img.shields.io/badge/testes-10_passing-16a34a)
+![Testes](https://img.shields.io/badge/testes-15_passing-16a34a)
+![Cobertura](https://img.shields.io/badge/cobertura-96%25-16a34a)
 ![CI](https://github.com/LeonardoCarrilho/api-tarefas/actions/workflows/ci.yml/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-16a34a)
 
@@ -232,7 +233,8 @@ src/
 ├── docs/
 │   └── openapi.js          # contrato OpenAPI 3.0
 ├── middlewares/
-│   └── errorHandler.js     # 404 e erros centralizados
+│   ├── errorHandler.js     # 404 e erros centralizados
+│   └── rateLimit.js        # rate limit das rotas de tarefas
 ├── models/
 │   └── Task.js             # schema e validações
 ├── routes/
@@ -242,9 +244,11 @@ src/
 ├── app.js                  # configuração do Express
 └── server.js               # inicialização e shutdown
 tests/
+├── rateLimit.test.js       # testes do rate limit
 └── tasks.test.js           # testes de integração da API
 docs/
 └── preview.svg             # imagem de apresentação do repositório
+docker-compose.yml          # MongoDB 8 + API
 ```
 
 ## Testes
@@ -253,13 +257,22 @@ docs/
 npm test
 ```
 
-Os testes usam o **Node Test Runner** com **Supertest** e um MongoDB em memória (`mongodb-memory-server`), sem depender de um banco local. A suíte cobre health check, criação, validação, filtros, busca, paginação, estatísticas, atualização de status, remoção, erros de ID e a documentação OpenAPI.
+Os testes usam o **Node Test Runner** com **Supertest** e um MongoDB em memória (`mongodb-memory-server`), sem depender de um banco local. A suíte cobre health check, criação, validação, filtros, busca, paginação e seus cabeçalhos, estatísticas, atualização de status (geral e dedicada), remoção, erros de ID, rate limit e a documentação OpenAPI.
 
 Para rodar em modo watch:
 
 ```bash
 npm run test:watch
 ```
+
+Para medir a cobertura de testes:
+
+```bash
+npm run test:coverage
+```
+
+O Node Test Runner imprime o relatório no terminal, com percentuais de linhas, branches e
+funções por arquivo.
 
 ### Testes manuais
 
