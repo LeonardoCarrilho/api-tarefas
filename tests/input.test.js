@@ -12,4 +12,3 @@ test("validação rejeita operadores, campos extras e paginação excessiva",asy
  await request(app).get("/?search[x]=y").expect(400);
  assert.equal((await request(app).post("/").send({title:"Título normal"})).status,204);
 });
-

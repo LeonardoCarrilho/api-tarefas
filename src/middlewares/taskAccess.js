@@ -14,4 +14,3 @@ export function requireTaskToken(req, res, next) {
   }
   return next();
 }
-

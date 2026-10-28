@@ -12,4 +12,3 @@ test("dados de tarefas exigem credencial servidor-servidor em produção",async(
  const response=await request(app).get("/").set("Authorization","Bearer "+process.env.TASK_API_TOKEN).expect(200);
  assert.equal(response.body.ok,true);
 });
-

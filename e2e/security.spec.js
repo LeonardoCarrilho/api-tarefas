@@ -10,4 +10,3 @@ test("cria, lê e remove tarefa pelo servidor HTTP",async({request})=>{
 test("rejeita payload com operador de banco",async({request})=>{
  expect((await request.post("/api/tasks",{data:{title:{"$ne":null}}})).status()).toBe(400);
 });
-

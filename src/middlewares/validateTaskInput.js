@@ -17,4 +17,3 @@ export function validateTaskInput(req, res, next) {
   }
   return next();
 }
-
