@@ -3,7 +3,7 @@ services:
     image: mongo:8
     restart: unless-stopped
     ports:
-      - "27017:27017"
+      - "127.0.0.1:27017:27017"
     volumes:
       - mongo-data:/data/db
     healthcheck:
@@ -23,11 +23,14 @@ services:
       NODE_ENV: production
       PORT: 3000
       MONGODB_URI: mongodb://mongo:27017/api-tarefas
-      CORS_ORIGIN: ${CORS_ORIGIN:-}
+      CORS_ORIGIN: ${CORS_ORIGIN:?Configure CORS_ORIGIN}
+      PUBLIC_ORIGIN: ${PUBLIC_ORIGIN:?Configure PUBLIC_ORIGIN}
+      TRUSTED_PROXIES: ${TRUSTED_PROXIES:-}
+      TASK_API_TOKEN: ${TASK_API_TOKEN:?Configure TASK_API_TOKEN}
       RATE_LIMIT_MAX: ${RATE_LIMIT_MAX:-100}
       RATE_LIMIT_WINDOW_MS: ${RATE_LIMIT_WINDOW_MS:-60000}
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
 
 volumes:
   mongo-data:

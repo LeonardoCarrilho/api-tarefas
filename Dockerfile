@@ -1,4 +1,4 @@
-FROM node:22-alpine
+FROM node:24-alpine
 
 WORKDIR /app
 
@@ -8,6 +8,7 @@ RUN npm ci --omit=dev
 COPY src ./src
 
 ENV NODE_ENV=production
+USER node
 EXPOSE 3000
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
