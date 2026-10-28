@@ -345,3 +345,9 @@ repassadas para a API, com valores padrão definidos no compose.
 ## Licença
 
 MIT — use livremente para estudos e portfólio.
+
+## Contribuição e segurança
+
+Leia [AGENTS.md](AGENTS.md) antes de alterar o projeto. Toda tarefa exige issue e PR associado, com validação antes da publicação.
+
+Configuração de produção, observabilidade e limites da hospedagem: [docs/SECURITY.md](docs/SECURITY.md).
