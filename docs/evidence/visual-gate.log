@@ -1,0 +1,95 @@
+gate: checking http://127.0.0.1:4189/api/docs/ (software); this takes a few minutes on a CPU Chrome
+gate: rounds used up; 30 FAIL open
+  FAIL no-visual        main#operations > div.wrapper:nth-of-type(1) > section.block.col-12 "Tarefas Operações de   [1440, 390]
+       no picture, effect or mock in this section; a feature section needs a visual
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  FAIL no-visual        main#operations > div.wrapper:nth-of-type(2) > section.block.col-12 "Schemas TaskStatus Ta  [1440, 390]
+       no picture, effect or mock in this section; a feature section needs a visual
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  FAIL cta              main#operations > div.wrapper:nth-of-type(1) > section.block.col-12  [1440, 390]
+       the hero has no button (the nav's does not count)
+       fix: add the action: a button in the hero, one on every priced item, one in the closing section
+  FAIL cta              main#operations > div.wrapper:nth-of-type(2) > section.block.col-12 "Schemas TaskStatus Ta  [1440, 390]
+       the last section before the footer ends with no button
+       fix: add the action: a button in the hero, one on every priced item, one in the closing section
+  FAIL stagger          div > div.info > hgroup.main > h1.title "API de Tarefas 1.0.0 OAS 3.0"  [1440, 390]
+       the 2 lines of this heading start at 152, 503px: a headline broken across columns, read in a zigzag
+       fix: start every row of the list on one left edge
+  FAIL links            h3#operations-tag-Tarefas > a.nostyle "Tarefas"  [1440]
+       "Tarefas" goes to #/Tarefas, which is not on this page
+       fix: point every link at a real section, page or file
+  FAIL links            button.opblock-summary-control > div.opblock-summary-path-description-wrapper > span.opblo  [1440]
+       "/api/tasks" goes to #/Tarefas/get_api_tasks, which is not on this page
+       fix: point every link at a real section, page or file
+  FAIL links            button.opblock-summary-control > div.opblock-summary-path-description-wrapper > span.opblo  [1440]
+       "/api/tasks/stats" goes to #/Tarefas/get_api_tasks_stats, which is not on this page
+       fix: point every link at a real section, page or file
+  FAIL links            button.opblock-summary-control > div.opblock-summary-path-description-wrapper > span.opblo  [1440]
+       "/api/tasks/{id}" goes to #/Tarefas/get_api_tasks__id_, which is not on this page
+       fix: point every link at a real section, page or file
+  FAIL links            button.opblock-summary-control > div.opblock-summary-path-description-wrapper > span.opblo  [1440]
+       "/api/tasks/{id}/status" goes to #/Tarefas/patch_api_tasks__id__status, which is not on this page
+       fix: point every link at a real section, page or file
+  FAIL links            h3#operations-tag-Sistema > a.nostyle "Sistema"  [1440]
+       "Sistema" goes to #/Sistema, which is not on this page
+       fix: point every link at a real section, page or file
+  FAIL links            button.opblock-summary-control > div.opblock-summary-path-description-wrapper > span.opblo  [1440]
+       "/api/health" goes to #/Sistema/get_api_health, which is not on this page
+       fix: point every link at a real section, page or file
+  FAIL heading-order    h3#operations-tag-Tarefas "TarefasOperações de tarefas"  [1440]
+       "TarefasOperações de tarefas" is an h3 after an h1: a level is skipped
+       fix: step down one level at a time (h1, h2, h3): change the tag, not the look; a footer's column heads are h3
+  FAIL focus-ring       html.dark-mode .swagger-ui .opblock.opblock-post .opblock-summary-control:focus  [1440]
+       "html.dark-mode .swagger-ui .opblock.opblock-post .opblock-summary-control:focus" in swagger-ui.css removes the focus outline and sets nothing in its place
+       fix: keep the kit's :focus-visible ring, or put a change of the same strength (a 2px line in --action) in the rule that removes it
+  FAIL focus-ring       html.dark-mode .swagger-ui .opblock.opblock-deprecated .opblock-summary-control:focus  [1440]
+       "html.dark-mode .swagger-ui .opblock.opblock-deprecated .opblock-summary-control:focus" in swagger-ui.css removes the focus outline and sets nothing in its place
+       fix: keep the kit's :focus-visible ring, or put a change of the same strength (a 2px line in --action) in the rule that removes it
+  FAIL focus-ring       html.dark-mode .swagger-ui .opblock.opblock-put .opblock-summary-control:focus  [1440]
+       "html.dark-mode .swagger-ui .opblock.opblock-put .opblock-summary-control:focus" in swagger-ui.css removes the focus outline and sets nothing in its place
+       fix: keep the kit's :focus-visible ring, or put a change of the same strength (a 2px line in --action) in the rule that removes it
+  FAIL focus-ring       html.dark-mode .swagger-ui .opblock.opblock-get .opblock-summary-control:focus  [1440]
+       "html.dark-mode .swagger-ui .opblock.opblock-get .opblock-summary-control:focus" in swagger-ui.css removes the focus outline and sets nothing in its place
+       fix: keep the kit's :focus-visible ring, or put a change of the same strength (a 2px line in --action) in the rule that removes it
+  FAIL action-repeat    div#operations-Tarefas-get_api_tasks > div.opblock-summary > div.view-line-link.copy-to-cl  [1440]
+       "copy path to clipboard" shows 4 times on the first screen at 1440px (hero, hero, hero, hero): three copies of one action on a screen read as clutter
+       fix: show the action once a screen besides the nav's button: the hero's, the close's or the phone bar's, never all at once
+  FAIL moment-none      (the page)  [1440]
+       a software page (--type) deals no moment: every kind carries one, two on a long page (moments.md)
+       fix: deal one (moments.mjs pick --page software) and mount it in its own section
+  FAIL hero-screen      main#operations > div.wrapper:nth-of-type(1) "TarefasOperações de tarefas GET/api/task"  [1440]
+       the hero ends at 1438px on a 900px screen, 538px below the fold: it ends at the fold, 1px either way (SR-1)
+       fix: make the hero exactly one screen (height: 100svh, its content fitted inside), never taller or shorter
+  FAIL section-height   main#operations > div.wrapper:nth-of-type(2) "Schemas TaskStatus TaskPriority TaskInpu"  [1440]
+       the section is 1076px tall (1.2 screens), 176px over one screen (900px): every section after the hero is one screen or two, 2px either way (SR-2)
+       fix: set the section to one screen or two (height: calc(var(--h,1) * 100vh), --h 1 or 2) and cut or split its content to fit
+  FAIL section-air      div.wrapper:nth-of-type(2) > section.block.col-12 > section.models > h4 "Schemas"  [1440]
+       a bottom border across 100% of the container, between the section's content: sections and their parts are told apart by air and ground, not lines (SR-3)
+       fix: take the rule out: sections and their parts are parted by their ground and the air between them
+  FAIL one-section      main#operations > div.wrapper:nth-of-type(2) "Schemas TaskStatus TaskPriority TaskInpu"  [1440]
+       the screen at scroll 900px (stride 1) shows 322px of section 2 and the content of 2 sections, over 24px each beside section 1: a screen shows one section (another may peek 8px, 24px WARN) (SR-4)
+       fix: make each section exactly one screen or two, so a screen shows one section and no neighbour peeks
+  FAIL one-section      div#model-TaskStatus "TaskStatus"  [1440]
+       a band: a box 91% of the section wide on a ground of its own that holds only text: the section's own ground is the band (and 21 more like it: "TaskStatus", "TaskPriority", "TaskPriority") (SR-4)
+       fix: put every block of <main> in a <section>, and give a band its own section instead of a ground inside one
+  FAIL container-edges  div#swagger-ui > section.swagger-ui.swagger-container > header.topbar ".logo_small_svg__cl  [1440]
+       the nav's content runs 152px from the left and 944px from the right (read from its outermost blocks: no .wrap): 152 and 944px are not one margin; the margin is 64-120px at 1440px (one container, equal margins, 2px either
+       fix: use one container on every section and the nav (.wrap): one margin left and right, 64-120px on a desktop, 16-24px on a phone
+  FAIL container-edges  main#operations > div.wrapper:nth-of-type(1) "TarefasOperações de tarefas GET/api/task"  [1440]
+       the content of section 1 runs 152px from the left and 152px from the right (read from its outermost blocks: no .wrap): the margin is 64-120px at 1440px (one container, equal margins, 2px either way) (SR-6)
+       fix: use one container on every section and the nav (.wrap): one margin left and right, 64-120px on a desktop, 16-24px on a phone
+  FAIL container-edges  main#operations > div.wrapper:nth-of-type(2) "Schemas TaskStatus TaskPriority TaskInpu"  [1440]
+       the content of section 2 runs 152px from the left and 152px from the right (read from its outermost blocks: no .wrap): the margin is 64-120px at 1440px (one container, equal margins, 2px either way) (SR-6)
+       fix: use one container on every section and the nav (.wrap): one margin left and right, 64-120px on a desktop, 16-24px on a phone
+  FAIL container-edges  div#swagger-ui "Skip to operations.logo_small_svg__cls-2"  [1440]
+       a <div> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (SR-6)
+       fix: build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing
+  FAIL container-edges  div.wrapper:nth-of-type(2) > section.block.col-12 > section.models > h4 "Schemas"  [1440]
+       1 text block starts on a left line at x 165, 13px from the container's left: text starts on the container's left, or on one split line (x 635, 732, 829) (SR-6)
+       fix: start the text on the container's left, or on the one split line every split shares
+  FAIL container        page  [1440, 390]
+       no .wrap
+       fix: put the content in one .wrap
+  8 WARN (not blocking), first: copy-headline div > div.info > hgroup.main > h1.title ; copy-actions (the page); page-meta head "API de Tarefas — Documentação"; share-meta head; tap-size div.wrapper > div.topbar-wrapper > div.d
+Stop fixing: put these open FAILs and the waivers in your report, then finish.
+GATE: OPEN 30 (rounds used up)

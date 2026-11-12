@@ -6,6 +6,7 @@ export function notFound(req, res) {
 }
 
 export function errorHandler(error, _req, res, _next) {
+  if (error.type === "entity.too.large") return res.status(413).json({ error: "Corpo da requisição muito grande." });
   if (error.name === "ValidationError") {
     return res.status(400).json({
       error: "Dados inválidos.",
@@ -27,8 +28,8 @@ export function errorHandler(error, _req, res, _next) {
     return res.status(400).json({ error: "JSON inválido no corpo da requisição." });
   }
 
-  console.error(error);
+  if (process.env.NODE_ENV !== "production") console.error(error);
   return res.status(error.status || 500).json({
-    error: error.message || "Erro interno do servidor.",
+    error: process.env.NODE_ENV === "production" ? "Erro interno do servidor." : error.message || "Erro interno do servidor.",
   });
 }

@@ -1,3 +1,4 @@
+import { validateTaskInput } from "../middlewares/validateTaskInput.js";
 import { Router } from "express";
 import {
   createTask,
@@ -10,6 +11,7 @@ import {
 } from "../controllers/taskController.js";
 
 const router = Router();
+router.use(validateTaskInput);
 
 router.get("/stats", getStats);
 
