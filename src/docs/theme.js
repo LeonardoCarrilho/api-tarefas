@@ -96,12 +96,14 @@ html .swagger-ui .opblock .opblock-summary .opblock-summary-control:focus-visibl
 html.dark-mode .swagger-ui .opblock .opblock-summary .opblock-summary-control:focus-visible { outline: 3px solid var(--p-accent); outline-offset: -3px; }
 .swagger-ui .opblock-summary .view-line-link { opacity: 1; visibility: visible; }
 .swagger-ui .opblock-summary .view-line-link button { min-width: 32px; min-height: 44px; }
+.swagger-ui .opblock .opblock-control-arrow { min-width: 44px; min-height: 44px; padding: 10px; }
 @media(max-width: 767px) {
   .swagger-ui .wrapper { padding-inline: 20px; }
   .swagger-ui .info { margin: 32px 0; }
   .swagger-ui .info .title small { display: inline-block; margin: 8px 8px 0 0; }
   .swagger-ui .opblock-tag { align-items: flex-start; flex-wrap: wrap; }
   .swagger-ui .opblock-tag small { flex-basis: 100%; }
+  .swagger-ui .opblock-tag small { padding-left: 0; }
   .swagger-ui .opblock .opblock-summary { padding: 12px; gap: 8px; }
   .swagger-ui .opblock .opblock-summary-control { flex-wrap: wrap; gap: 8px; }
   .swagger-ui .opblock .opblock-summary-method { min-width: 66px; }
