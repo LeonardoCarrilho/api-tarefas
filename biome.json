@@ -4,6 +4,7 @@
       "**",
       "!**/dist",
       "!**/coverage",
+      "!**/.taste-skill",
       "!**/package-lock.json"
     ]
   },

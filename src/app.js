@@ -2,12 +2,14 @@ import { requireTaskToken } from "./middlewares/taskAccess.js";
 import { configureSecurity } from "./security.js";
 import { reportServerError } from "./observability.js";
 import express from "express";
+import { fileURLToPath } from "node:url";
 import cors from "cors";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import taskRoutes from "./routes/taskRoutes.js";
 import { openApiDocument } from "./docs/openapi.js";
+import { docsTheme } from "./docs/theme.js";
 import { errorHandler, notFound } from "./middlewares/errorHandler.js";
 import { taskRateLimiter } from "./middlewares/rateLimit.js";
 
@@ -55,6 +57,7 @@ app.get("/api/health", (_req, res) => {
 app.use("/api/tasks", taskRateLimiter, requireTaskToken, taskRoutes);
 
 if (process.env.NODE_ENV !== "production") {
+app.use("/api/docs/assets", express.static(fileURLToPath(new URL("./docs/assets", import.meta.url))));
 app.get("/api/docs.json", (_req, res) => res.json(openApiDocument));
 
 app.use(
@@ -62,6 +65,8 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(openApiDocument, {
     customSiteTitle: "API de Tarefas — Documentação",
+    customCss: docsTheme,
+    customJs: "/api/docs/assets/docs-ui.js",
   })
 );
 
